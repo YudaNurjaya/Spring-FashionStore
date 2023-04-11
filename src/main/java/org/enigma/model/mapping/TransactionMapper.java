@@ -1,7 +1,6 @@
 package org.enigma.model.mapping;
 
 import org.enigma.model.Transaction;
-import org.enigma.utils.GenerateDate;
 import org.springframework.jdbc.core.RowMapper;
 
 import java.sql.ResultSet;
@@ -15,7 +14,7 @@ public class TransactionMapper implements RowMapper<Transaction> {
         transaction.setId(rs.getString("id"));
         transaction.setDate(LocalDate.parse(rs.getString("date")));
         transaction.setQty(rs.getInt("qty"));
-        transaction.setStoreId(rs.getString("store_id"));
+        transaction.setPriceId(rs.getString("price_id"));
 
         return transaction;
     }

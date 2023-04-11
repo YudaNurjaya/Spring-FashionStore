@@ -63,14 +63,6 @@ public class StoreService implements IStoreService {
             throw new RuntimeException(e.getMessage());
         }
     }
-    @Override
-    public List<Store> findByCategory(String category) {
-        try {
-            return repository.findByCategory(category);
-        }catch (Exception e){
-            throw new RuntimeException(e.getMessage());
-        }
-    }
 
     @Override
     public List<Store> findByProduct(String product) {
@@ -85,24 +77,6 @@ public class StoreService implements IStoreService {
     public List<Store> findBySize(String size) {
         try {
             return repository.findBySize(size);
-        }catch (Exception e){
-            throw new RuntimeException(e.getMessage());
-        }
-    }
-
-    @Override
-    public List<Store> findByStock(Integer stock) {
-        try {
-            return repository.findByStock(stock);
-        }catch (Exception e){
-            throw new RuntimeException(e.getMessage());
-        }
-    }
-
-    @Override
-    public List<Store> findByPrice(Double price) {
-        try {
-            return repository.findByPrice(price);
         }catch (Exception e){
             throw new RuntimeException(e.getMessage());
         }

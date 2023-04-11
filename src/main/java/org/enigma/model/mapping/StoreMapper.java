@@ -13,9 +13,7 @@ public class StoreMapper implements RowMapper<Store> {
         store.setId(rs.getString("id"));
         store.setName(rs.getString("name"));
         store.setSize(rs.getString("size"));
-        store.setCategory(rs.getString("category"));
-        store.setStock(rs.getInt("stock"));
-        store.setPrice(rs.getDouble("price"));
+        store.setCategoryId(rs.getString("category_id"));
 
         return store;
     }

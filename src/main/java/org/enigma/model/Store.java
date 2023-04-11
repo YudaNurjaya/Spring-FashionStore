@@ -8,39 +8,22 @@ public class Store {
     private String id;
     private String name;
     private String size;
-    private Integer stock;
-    private String category;
-    private Double price;
+    private String categoryId;
 
-    public Store(String id, String name, String size, Integer stock, String category, Double price) {
+
+    public Store(String id, String name, String size, String categoryId) {
         this.id = id;
         this.name = name;
         this.size = size;
-        this.stock = stock;
-        this.category = category;
-        this.price = price;
+        this.categoryId = categoryId;
     }
 
-    public Store(String name, String size, Integer stock, String category, Double price) {
+    public Store(String name, String size, String categoryId) {
         this.name = name;
         this.size = size;
-        this.stock = stock;
-        this.category = category;
-        this.price = price;
+        this.categoryId = categoryId;
     }
 
     public Store() {
-    }
-
-    @Override
-    public String toString() {
-        return "Store{" +
-                "id='" + id + '\'' +
-                ", name='" + name + '\'' +
-                ", size='" + size + '\'' +
-                ", stock=" + stock +
-                ", category='" + category + '\'' +
-                ", price=" + price +
-                '}';
     }
 }

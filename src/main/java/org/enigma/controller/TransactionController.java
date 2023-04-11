@@ -138,11 +138,13 @@ public class TransactionController {
 
     public void searchTransaction(){
         System.out.println("=== Search Transaction ===");
+        System.out.println("1.Id");
+        System.out.println("2.date");
         System.out.println("Search by\t: ");
 
         String input = scanner.next();
-        while(!input.matches("[a-zA-Z]")){
-            System.out.println("Invalid words");
+        while(!(input.equalsIgnoreCase("id") || input.equalsIgnoreCase("date"))){
+            System.out.println("Wrong Input");
             System.out.println("Search by\t: ");
             input = scanner.next();
         }

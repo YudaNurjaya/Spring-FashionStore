@@ -16,7 +16,7 @@ public class TransactionRepository implements ITransactionRepository {
     private final String SQL_GET_ALL = "select * from transaction";
     private final String INSERT_INTO_TRANSACTION = "insert into transaction values(?,?,?,?)";
     private final String SQL_FIND_BY_ID = "select * from transaction where id = ?";
-    private final String SQL_UPDATE = "update transaction set date = ?, qty = ?, stock_id = ? where id = ?";
+    private final String SQL_UPDATE = "update transaction set date = ?, qty = ?, price_id = ? where id = ?";
     private final String SQL_DELETE = "delete from transaction where id = ?";
     private final String SQL_FIND_BY_DATE = "select * from transaction where date = ?";
 
@@ -37,7 +37,7 @@ public class TransactionRepository implements ITransactionRepository {
     public Transaction create(Transaction create) throws Exception {
         try {
             create.setId(randomUuid.random());
-            int add = jdbcTemplate.update(INSERT_INTO_TRANSACTION,create.getId(),create.getDate(),create.getQty(),create.getStoreId());
+            int add = jdbcTemplate.update(INSERT_INTO_TRANSACTION,create.getId(),create.getDate(),create.getQty(),create.getPriceId());
             if(add<=0){
                 System.out.println("Failed to insert");
             }
@@ -60,7 +60,7 @@ public class TransactionRepository implements ITransactionRepository {
     @Override
     public void update(Transaction update, String id) throws Exception {
         try {
-            jdbcTemplate.update(SQL_UPDATE,update.getDate(),update.getQty(),update.getStoreId(),id);
+            jdbcTemplate.update(SQL_UPDATE,update.getDate(),update.getQty(),update.getPriceId(),id);
         }catch (DataAccessException e){
             throw new RuntimeException(e.getMessage());
         }

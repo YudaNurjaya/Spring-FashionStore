@@ -11,14 +11,14 @@ public class Transaction {
     private String id;
     private LocalDate date;
     private Integer qty;
-    private String storeId;
+    private String priceId;
 
 
 
-    public Transaction(LocalDate date, Integer qty, String storeId) {
+    public Transaction(LocalDate date, Integer qty, String priceId) {
         this.date = date;
         this.qty = qty;
-        this.storeId = storeId;
+        this.priceId = priceId;
     }
 
     public Transaction() {
@@ -30,7 +30,7 @@ public class Transaction {
                 "id='" + id + '\'' +
                 ", date=" + date +
                 ", qty=" + qty +
-                ", storeId='" + storeId + '\'' +
+                ", priceId='" + priceId + '\'' +
                 '}';
     }
 }

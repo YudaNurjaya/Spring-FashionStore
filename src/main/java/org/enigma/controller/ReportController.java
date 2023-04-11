@@ -13,20 +13,31 @@ public class ReportController {
     private ReportService reportService = ctx.getBean(ReportService.class);
     Scanner scanner = new Scanner(System.in);
 
-    public void reportMenu(){
-        System.out.println("=== Report ===");
-        System.out.println("1. Report Daily");
-        System.out.println("2. Report Monthly");
-        System.out.println("3. All Report");
-        System.out.println("4. Back to Main Menu");
+    public void reportMenu() {
+        while (true) {
+            System.out.println("=== Report ===");
+            System.out.println("1. Report Daily");
+            System.out.println("2. Report Monthly");
+            System.out.println("3. All Report");
+            System.out.println("4. Back to Main Menu");
 
-        String input = scanner.next();
+            String input = scanner.next();
 
-        switch (input){
-            case "1" -> reportDaily();
-            case "2" -> reportMonthly();
-            case "3" -> report();
-            case "4" -> new MainMenu().mainMenu();
+            while(!input.matches("[1-4]")){
+                System.out.println("Menu not found");
+                System.out.println("1. Report Daily");
+                System.out.println("2. Report Monthly");
+                System.out.println("3. All Report");
+                System.out.println("4. Back to Main Menu");
+
+                input = scanner.next();
+            }
+            switch (input) {
+                case "1" -> reportDaily();
+                case "2" -> reportMonthly();
+                case "3" -> report();
+                case "4" -> new MainMenu().mainMenu();
+            }
         }
     }
 

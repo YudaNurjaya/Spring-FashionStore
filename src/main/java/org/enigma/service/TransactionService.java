@@ -1,5 +1,6 @@
 package org.enigma.service;
-import org.enigma.model.Store;
+import org.enigma.model.Price;
+import org.enigma.model.Stock;
 import org.enigma.model.Transaction;
 import org.enigma.repository.TransactionRepository;
 import org.springframework.dao.DataAccessException;
@@ -11,11 +12,13 @@ import java.util.Optional;
 
 public class TransactionService implements ITransactionService{
     private final TransactionRepository transactionRepository;
-    private StoreService storeService;
+    private StockService stockService;
+    private PriceService priceService;
 
-    public TransactionService(TransactionRepository transactionRepository, StoreService storeService) {
+    public TransactionService(TransactionRepository transactionRepository, StockService stockService, PriceService priceService) {
         this.transactionRepository = transactionRepository;
-        this.storeService = storeService;
+        this.stockService = stockService;
+        this.priceService = priceService;
 
     }
 
@@ -35,9 +38,9 @@ public class TransactionService implements ITransactionService{
     @Override
     public Transaction create(Transaction create){
         try {
-            Optional<Store> find = storeService.findId(create.getStoreId());
-            find.get().setStock(find.get().getStock()-create.getQty());
-            storeService.update(find.get(), create.getStoreId());
+            Optional<Price> findPriceId = priceService.findId(create.getPriceId());
+            Optional<Stock> findStockId = stockService.findId(findPriceId.get().getStockId());
+            findStockId.get().setStock(findStockId.get().getStock() - create.getQty());
             System.out.println("Transaction Added");
             return transactionRepository.create(create);
         }catch (Exception e){
@@ -57,6 +60,7 @@ public class TransactionService implements ITransactionService{
     @Override
     public void update(Transaction update, String id){
         try {
+            System.out.println("Transaction Updated");
             transactionRepository.update(update,id);
         }catch (Exception e){
             throw new RuntimeException(e.getMessage());
@@ -66,6 +70,7 @@ public class TransactionService implements ITransactionService{
     @Override
     public void delete(String id){
         try {
+            System.out.println("Transaction Deleted");
             transactionRepository.delete(id);
         }catch (Exception e){
             throw new RuntimeException(e.getMessage());
@@ -80,4 +85,6 @@ public class TransactionService implements ITransactionService{
             throw new RuntimeException(e.getMessage());
         }
     }
+
+
 }
