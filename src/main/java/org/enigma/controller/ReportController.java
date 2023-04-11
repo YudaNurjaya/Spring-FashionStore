@@ -20,6 +20,7 @@ public class ReportController {
             System.out.println("2. Report Monthly");
             System.out.println("3. All Report");
             System.out.println("4. Back to Main Menu");
+            System.out.println("Choose\t: ");
 
             String input = scanner.next();
 
@@ -29,7 +30,7 @@ public class ReportController {
                 System.out.println("2. Report Monthly");
                 System.out.println("3. All Report");
                 System.out.println("4. Back to Main Menu");
-
+                System.out.println("Choose\t: ");
                 input = scanner.next();
             }
             switch (input) {

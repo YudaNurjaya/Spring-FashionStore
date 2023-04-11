@@ -41,6 +41,7 @@ public class TransactionService implements ITransactionService{
             Optional<Price> findPriceId = priceService.findId(create.getPriceId());
             Optional<Stock> findStockId = stockService.findId(findPriceId.get().getStockId());
             findStockId.get().setStock(findStockId.get().getStock() - create.getQty());
+            stockService.update(findStockId.get(),findPriceId.get().getStockId());
             System.out.println("Transaction Added");
             return transactionRepository.create(create);
         }catch (Exception e){

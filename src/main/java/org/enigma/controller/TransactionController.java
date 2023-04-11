@@ -70,15 +70,15 @@ public class TransactionController {
             qty = scanner.nextInt();
         }
 
-        System.out.println("3. Input product id\t: ");
-        String id = scanner.next();
-        while(id.isEmpty()){
-            System.out.println("Product Id cannot empty");
+        System.out.println("3. Input price id\t: ");
+        String priceId = scanner.next();
+        while(priceId.isEmpty()){
+            System.out.println("Price Id cannot empty");
             System.out.println("3. Input product id\t: ");
-            id = scanner.next();
+            priceId = scanner.next();
         }
 
-        Transaction transaction = new Transaction(LocalDate.parse(date),qty,id);
+        Transaction transaction = new Transaction(LocalDate.parse(date),qty,priceId);
         transactionService.create(transaction);
     }
 
@@ -108,15 +108,15 @@ public class TransactionController {
             qty = scanner.nextInt();
         }
 
-        System.out.println("3. Input product id\t: ");
-        String storeId = scanner.next();
-        while(id.isEmpty()){
-            System.out.println("Product Id cannot empty");
-            System.out.println("3. Input product id\t: ");
-            id = scanner.next();
+        System.out.println("3. Input price id\t: ");
+        String priceId = scanner.next();
+        while(priceId.isEmpty()){
+            System.out.println("Price Id cannot empty");
+            System.out.println("3. Input price id\t: ");
+            priceId = scanner.next();
         }
 
-        Transaction transaction = new Transaction(LocalDate.parse(date),qty,storeId);
+        Transaction transaction = new Transaction(LocalDate.parse(date),qty,priceId);
         transactionService.update(transaction,id);
     }
 
