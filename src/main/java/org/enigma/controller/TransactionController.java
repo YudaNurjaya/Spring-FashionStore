@@ -157,7 +157,7 @@ public class TransactionController {
                 System.out.println("Input Transaction Id\t: ");
                 id = scanner.next();
             }
-            transactionService.findById(id);
+            transactionService.findById(id).stream().forEach(System.out::println);
         }
         if(input.equalsIgnoreCase("date")){
             System.out.println("Input Date\t: ");
@@ -168,7 +168,7 @@ public class TransactionController {
                 System.out.println("Input Date\t: ");
                 date = scanner.next();
             }
-            transactionService.findByDate(GenerateDate.generate(date));
+            transactionService.findByDate(GenerateDate.generate(date)).stream().forEach(System.out::println);
         }
     }
 }

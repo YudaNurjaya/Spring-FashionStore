@@ -45,8 +45,13 @@ public class StockService implements IStockService{
     @Override
     public void delete(String id) {
         try {
-            System.out.println("Stock Deleted");
-            stockRepository.delete(id);
+            Optional<Stock> find = stockRepository.findId(id);
+            if(find.isEmpty()){
+                System.out.println("Id not found");
+            }else {
+                System.out.println("Stock Deleted");
+                stockRepository.delete(id);
+            }
         }catch (Exception e){
             throw new RuntimeException(e.getMessage());
         }

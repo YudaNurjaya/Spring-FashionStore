@@ -1,7 +1,7 @@
 package org.enigma.controller;
 
 import org.enigma.configuration.BeanConfiguration;
-import org.enigma.model.Store;
+import org.enigma.model.Product;
 import org.enigma.service.IStoreService;
 import org.enigma.view.MainMenu;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
@@ -73,7 +73,7 @@ public class ProductController {
             System.out.println("4. Category\t: ");
             category = scanner.next();
         }
-        Store store = new Store(product,size,category);
+        Product store = new Product(product,size,category);
         storeService.create(store);
     }
     public void updateProduct(){
@@ -105,7 +105,7 @@ public class ProductController {
             System.out.println("4. Category\t: ");
             category = scanner.next();
         }
-        Store store = new Store(product,size,category);
+        Product store = new Product(product,size,category);
         storeService.update(store,id);
     }
 

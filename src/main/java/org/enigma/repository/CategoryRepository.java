@@ -9,15 +9,17 @@ import org.springframework.jdbc.core.JdbcTemplate;
 
 import javax.sql.DataSource;
 import java.util.List;
+import java.util.Optional;
 
 public class CategoryRepository implements ICategoryRepository{
     @Autowired
     private RandomUuid randomUuid;
     private JdbcTemplate jdbcTemplate;
     private final String SQL_GET_ALL = "select * from category";
-    private final String INSERT_INTO_STORE = "insert into category values(?,?)";
+    private final String INSERT_INTO_CATEGORY = "insert into category values(?,?)";
     private final String SQL_UPDATE = "update category set category = ? where id = ?";
     private final String SQL_DELETE = "delete from category where id = ?";
+    private final String SQL_FIND_BY_ID = "select * from category where id = ?";
 
     public CategoryRepository(DataSource dataSource) {
         this.jdbcTemplate = new JdbcTemplate(dataSource);
@@ -36,7 +38,7 @@ public class CategoryRepository implements ICategoryRepository{
     public Category create(Category create){
         try {
             create.setId(randomUuid.random());
-            int add = jdbcTemplate.update(INSERT_INTO_STORE,create.getId(),create.getCategory());
+            int add = jdbcTemplate.update(INSERT_INTO_CATEGORY,create.getId(),create.getCategory());
             if(add<=0){
                 System.out.println("Failed to insert");
             }
@@ -59,6 +61,16 @@ public class CategoryRepository implements ICategoryRepository{
     public void delete(String id){
         try {
             jdbcTemplate.update(SQL_DELETE,id);
+        }catch (Exception e){
+            throw new RuntimeException(e.getMessage());
+        }
+    }
+
+    @Override
+    public Optional<Category> findId(String id) throws Exception {
+        try {
+            Category category = jdbcTemplate.queryForObject(SQL_FIND_BY_ID,new CategoryMapper(),new Object[]{id});
+            return Optional.ofNullable(category);
         }catch (Exception e){
             throw new RuntimeException(e.getMessage());
         }

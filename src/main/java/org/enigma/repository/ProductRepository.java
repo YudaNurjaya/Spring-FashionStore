@@ -1,6 +1,6 @@
 package org.enigma.repository;
 
-import org.enigma.model.Store;
+import org.enigma.model.Product;
 import org.enigma.model.mapping.StoreMapper;
 import org.enigma.utils.RandomUuid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-public class StoreRepository implements IStoreRepository {
+public class ProductRepository implements IProductRepository {
     @Autowired
     private RandomUuid randomUuid;
     private JdbcTemplate jdbcTemplate;
@@ -22,12 +22,12 @@ public class StoreRepository implements IStoreRepository {
     private final String SQL_UPDATE = "update product set name = ?, size = ?, category_id = ? where id = ?";
     private final String SQL_DELETE = "delete from product where id = ?";
 
-    public StoreRepository(DataSource dataSource) {
+    public ProductRepository(DataSource dataSource) {
         this.jdbcTemplate = new JdbcTemplate(dataSource);
     }
 
     @Override
-    public List<Store> getAll(){
+    public List<Product> getAll(){
         try {
             return jdbcTemplate.query(SQL_GET_ALL, new StoreMapper());
         }catch (DataAccessException e){
@@ -36,7 +36,7 @@ public class StoreRepository implements IStoreRepository {
     }
 
     @Override
-    public Store create(Store create) throws Exception {
+    public Product create(Product create) throws Exception {
         try {
             create.setId(randomUuid.random());
             int add = jdbcTemplate.update(INSERT_INTO_STORE,create.getId(), create.getName(),create.getSize(),create.getCategoryId());
@@ -50,17 +50,17 @@ public class StoreRepository implements IStoreRepository {
     }
 
     @Override
-    public Optional<Store> findById(String id) throws Exception {
+    public Optional<Product> findById(String id) throws Exception {
         try {
-            Store store = jdbcTemplate.queryForObject(SQL_FIND_BY_ID, new StoreMapper(),new Object[]{id});
-            return Optional.ofNullable(store);
+            Product product = jdbcTemplate.queryForObject(SQL_FIND_BY_ID, new StoreMapper(),new Object[]{id});
+            return Optional.ofNullable(product);
         }catch (Exception e){
             throw new RuntimeException(e.getMessage());
         }
     }
 
     @Override
-    public void update(Store update, String id) throws Exception {
+    public void update(Product update, String id) throws Exception {
         try {
             jdbcTemplate.update(SQL_UPDATE, update.getName(),update.getSize(),update.getCategoryId(),id);
         }catch (DataAccessException e){
@@ -78,9 +78,9 @@ public class StoreRepository implements IStoreRepository {
     }
 
     @Override
-    public List<Store> findByProduct(String product) throws Exception {
+    public List<Product> findByProduct(String product) throws Exception {
         try {
-            List<Store> list = jdbcTemplate.query(SQL_GET_ALL, (rs, rowNum)-> new Store
+            List<Product> list = jdbcTemplate.query(SQL_GET_ALL, (rs, rowNum)-> new Product
                             (rs.getString("id"),rs.getString("name"),rs.getString("size"),
                                     rs.getString("category_id")))
                     .stream()
@@ -96,9 +96,9 @@ public class StoreRepository implements IStoreRepository {
     }
 
     @Override
-    public List<Store> findBySize(String size) throws Exception {
+    public List<Product> findBySize(String size) throws Exception {
         try {
-            List<Store> list = jdbcTemplate.query(SQL_GET_ALL, (rs, rowNum)-> new Store
+            List<Product> list = jdbcTemplate.query(SQL_GET_ALL, (rs, rowNum)-> new Product
                             (rs.getString("id"),rs.getString("name"),rs.getString("size"),
                                     rs.getString("category_id")))
                     .stream()

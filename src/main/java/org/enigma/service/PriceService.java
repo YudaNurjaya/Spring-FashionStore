@@ -45,8 +45,13 @@ public class PriceService implements IPriceService{
     @Override
     public void delete(String id) {
         try {
-            System.out.println("Price Deleted");
-            priceRepository.delete(id);
+            Optional<Price> find = priceRepository.findId(id);
+            if(find.isEmpty()){
+                System.out.println("Id not found");
+            }else {
+                System.out.println("Price Deleted");
+                priceRepository.delete(id);
+            }
         }catch (Exception e){
             throw new RuntimeException(e.getMessage());
         }

@@ -2,9 +2,10 @@ package org.enigma.service;
 
 import org.enigma.model.Category;
 import org.enigma.repository.ICategoryRepository;
-import org.springframework.dao.DataAccessException;
+
 
 import java.util.List;
+import java.util.Optional;
 
 public class CategoryService implements ICategoryService{
     ICategoryRepository categoryRepository;
@@ -45,8 +46,13 @@ public class CategoryService implements ICategoryService{
     @Override
     public void delete(String id) {
         try {
-            System.out.println("Category Deleted");
-            categoryRepository.delete(id);
+            Optional<Category> find = categoryRepository.findId(id);
+            if(find.isEmpty()){
+                System.out.println("Id not found");
+            }else {
+                System.out.println("Category Deleted");
+                categoryRepository.delete(id);
+            }
         }catch (Exception e){
             throw new RuntimeException(e.getMessage());
         }

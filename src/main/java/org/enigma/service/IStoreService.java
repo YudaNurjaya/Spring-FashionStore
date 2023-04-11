@@ -1,17 +1,17 @@
 package org.enigma.service;
 
-import org.enigma.model.Store;
+import org.enigma.model.Product;
 
 import java.util.List;
 import java.util.Optional;
 
 public interface IStoreService {
-    List<Store> list();
-    Store create(Store create);
-    void update(Store update, String id);
+    List<Product> list();
+    Product create(Product create);
+    void update(Product update, String id);
     void delete(String id);
-    Optional<Store> findId(String id);
-    List<Store> findByProduct(String product);
-    List<Store> findBySize(String size);
+    Optional<Product> findId(String id);
+    List<Product> findByProduct(String product);
+    List<Product> findBySize(String size);
 
 }

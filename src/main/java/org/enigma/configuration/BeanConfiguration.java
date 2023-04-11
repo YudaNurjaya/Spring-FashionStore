@@ -21,7 +21,7 @@ public class BeanConfiguration {
     private String dbPassword;
 
     @Bean
-    public IStoreService getStoreService(){return new StoreService((StoreRepository) getStoreRepo());}
+    public IStoreService getStoreService(){return new ProductService((ProductRepository) getStoreRepo());}
     @Bean
     public ITransactionService getTransactionService(){return new TransactionService((TransactionRepository) getTransactionRepo(),(StockService) getStockService(),(PriceService) getPriceService());}
     @Bean
@@ -36,7 +36,7 @@ public class BeanConfiguration {
     public ITransactionRepository getTransactionRepo(){return new TransactionRepository(dataSource());
     }
     @Bean
-    public IStoreRepository getStoreRepo(){return new StoreRepository(dataSource());}
+    public IProductRepository getStoreRepo(){return new ProductRepository(dataSource());}
     @Bean
     public ReportRepository getReportRepo(){return new ReportRepository(dataSource());}
     @Bean

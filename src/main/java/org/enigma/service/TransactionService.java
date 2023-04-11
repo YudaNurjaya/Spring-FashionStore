@@ -71,8 +71,13 @@ public class TransactionService implements ITransactionService{
     @Override
     public void delete(String id){
         try {
-            System.out.println("Transaction Deleted");
-            transactionRepository.delete(id);
+            Optional<Transaction> find = transactionRepository.findById(id);
+            if(find.isEmpty()){
+                System.out.println("Id not found");
+            }else {
+                System.out.println("Transaction Deleted");
+                transactionRepository.delete(id);
+            }
         }catch (Exception e){
             throw new RuntimeException(e.getMessage());
         }
