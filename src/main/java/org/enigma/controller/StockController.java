@@ -54,14 +54,7 @@ public class StockController {
             System.out.println("1. Input stock\t: ");
             stock = scanner.nextInt();
         }
-        System.out.println("2. Input product Id\t: ");
-        String productId = scanner.next();
-        while(productId.isEmpty()){
-            System.out.println("Must fill product id");
-            System.out.println("2. Input product Id\t: ");
-            productId = scanner.next();
-        }
-        Stock create = new Stock(stock,productId);
+        Stock create = new Stock(stock);
         stockService.create(create);
     }
 
@@ -81,14 +74,7 @@ public class StockController {
             System.out.println("1. Input stock\t: ");
             stock = scanner.nextInt();
         }
-        System.out.println("2. Input product Id\t: ");
-        String productId = scanner.next();
-        while(productId.isEmpty()){
-            System.out.println("Must fill product id");
-            System.out.println("2. Input product Id\t: ");
-            productId = scanner.next();
-        }
-        Stock update = new Stock(stock,productId);
+        Stock update = new Stock(stock);
         stockService.update(update,id);
     }
 

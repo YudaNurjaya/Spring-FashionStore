@@ -12,7 +12,7 @@ public class StockMapper implements RowMapper<Stock> {
         Stock stock = new Stock();
         stock.setId(rs.getString("id"));
         stock.setStock(rs.getInt("stock"));
-        stock.setProductId(rs.getString("product_id"));
+
         return stock;
     }
 }

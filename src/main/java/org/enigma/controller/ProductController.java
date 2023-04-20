@@ -54,26 +54,26 @@ public class ProductController {
     public void addProduct(){
         System.out.println("=== Add Product ===");
         System.out.println("1. Name of product\t: ");
-        String product = scanner.next();
-        while (!product.matches("^[a-zA-Z0-9]+${4,}")){
+        String product = scanner.nextLine();
+        while (!product.matches("^[a-zA-Z0-9]+(?:\\s+[a-zA-Z0-9]+)*$")){
             System.out.println("Name invalid");
             System.out.println("1. Name of product\t: ");
             product = scanner.nextLine();
         }
         System.out.println("2. Size\t\t: ");
-        String size = scanner.next();
+        String size = scanner.nextLine();
         while(!size.matches("([Xx][Ss]|[SsMmLlXx]{1,2}|[Xx][Ll])|[0-9]{1,2}")){
             System.out.println("Size invalid");
             System.out.println("2. Size\t\t: ");
             size = scanner.next();
         }
-        System.out.println("3. Category\t: ");
+        System.out.println("3. Category Id\t: ");
         String category = scanner.next();
         while(category.matches("[a-zA-Z]")){
             System.out.println("4. Category\t: ");
             category = scanner.next();
         }
-        System.out.println("4. Input stock id\t: ");
+        System.out.println("4. Stock id\t: ");
         String stockId = scanner.next();
         while(stockId.isEmpty()){
             System.out.println("Must fill stock Id");
@@ -94,7 +94,7 @@ public class ProductController {
         }
         System.out.println("1. Name of product\t: ");
         String product = scanner.nextLine();
-        while (!product.matches("^[a-zA-Z0-9]+${4,}")){
+        while (!product.matches("^[a-zA-Z0-9]+(?:\\s+[a-zA-Z0-9]+)*$")){
             System.out.println("Name invalid");
             System.out.println("1. Name of product\t: ");
             product = scanner.nextLine();

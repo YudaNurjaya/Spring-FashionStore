@@ -7,11 +7,9 @@ import lombok.Setter;
 public class Stock {
     private String id;
     private Integer stock;
-    private String productId;
 
-    public Stock(Integer stock,String productId) {
+    public Stock(Integer stock) {
         this.stock = stock;
-        this.productId = productId;
     }
 
     public Stock() {
@@ -22,7 +20,6 @@ public class Stock {
         return "Stock{" +
                 "id='" + id + '\'' +
                 ", stock=" + stock +
-                ", productId='" + productId + '\'' +
                 '}';
     }
 }

@@ -15,8 +15,8 @@ public class StockRepository implements IStockRepository{
     @Autowired
     private RandomUuid randomUuid;
     private final String SQL_GET_ALL = "select * from stock";
-    private final String INSERT_INTO_STOCK = "insert into stock values(?,?,?)";
-    private final String SQL_UPDATE = "update stock set stock = ?, product_id = ? where id = ?";
+    private final String INSERT_INTO_STOCK = "insert into stock values(?,?)";
+    private final String SQL_UPDATE = "update stock set stock = ? where id = ?";
     private final String SQL_DELETE = "delete from stock where id = ?";
     private final String SQL_FIND_BY_ID = "select * from stock where id = ?";
 
@@ -37,7 +37,7 @@ public class StockRepository implements IStockRepository{
     public Stock create(Stock create) throws Exception {
         try {
             create.setId(randomUuid.random());
-            int add = jdbcTemplate.update(INSERT_INTO_STOCK, create.getId(),create.getStock(),create.getProductId());
+            int add = jdbcTemplate.update(INSERT_INTO_STOCK, create.getId(),create.getStock());
             if(add<=0){
                 System.out.println("Failed to insert");
             }
@@ -50,7 +50,7 @@ public class StockRepository implements IStockRepository{
     @Override
     public void update(Stock update, String id) throws Exception {
         try {
-            jdbcTemplate.update(SQL_UPDATE,update.getStock(),update.getProductId(),id);
+            jdbcTemplate.update(SQL_UPDATE,update.getStock(),id);
         }catch (Exception e){
             throw new RuntimeException(e.getMessage());
         }
