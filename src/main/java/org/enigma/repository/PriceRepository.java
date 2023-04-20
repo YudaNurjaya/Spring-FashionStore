@@ -14,8 +14,8 @@ public class PriceRepository implements IPriceRepository{
     private RandomUuid randomUuid;
     private JdbcTemplate jdbcTemplate;
     private final String SQL_GET_ALL = "select * from price";
-    private final String INSERT_INTO_STORE = "insert into price values(?,?,?,?)";
-    private final String SQL_UPDATE = "update price set price = ?, product_id = ?, stock_id = ? where id = ?";
+    private final String INSERT_INTO_STORE = "insert into price values(?,?,?)";
+    private final String SQL_UPDATE = "update price set price = ?, product_id = ? where id = ?";
     private final String SQL_DELETE = "delete from price where id = ?";
     private final String SQL_FIND_BY_ID = "select * from price where id = ?";
 
@@ -36,7 +36,7 @@ public class PriceRepository implements IPriceRepository{
     public Price create(Price create) throws Exception {
         try {
             create.setId(randomUuid.random());
-            int add =  jdbcTemplate.update(INSERT_INTO_STORE, create.getId(),create.getPrice(),create.getProductId(),create.getStockId());
+            int add =  jdbcTemplate.update(INSERT_INTO_STORE, create.getId(),create.getPrice(),create.getProductId());
             if(add<=0){
                 System.out.println("Failed to insert");
             }
@@ -49,7 +49,7 @@ public class PriceRepository implements IPriceRepository{
     @Override
     public void update(Price update, String id) throws Exception {
         try {
-            jdbcTemplate.update(SQL_UPDATE,update.getPrice(),update.getProductId(),update.getStockId(),id);
+            jdbcTemplate.update(SQL_UPDATE,update.getPrice(),update.getProductId(),id);
         }catch (Exception e){
             throw new RuntimeException(e.getMessage());
         }

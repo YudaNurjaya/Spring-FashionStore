@@ -1,5 +1,6 @@
 package org.enigma.service;
 import org.enigma.model.Price;
+import org.enigma.model.Product;
 import org.enigma.model.Stock;
 import org.enigma.model.Transaction;
 import org.enigma.repository.TransactionRepository;
@@ -14,11 +15,13 @@ public class TransactionService implements ITransactionService{
     private final TransactionRepository transactionRepository;
     private StockService stockService;
     private PriceService priceService;
+    private ProductService productService;
 
-    public TransactionService(TransactionRepository transactionRepository, StockService stockService, PriceService priceService) {
+    public TransactionService(TransactionRepository transactionRepository, StockService stockService, PriceService priceService, ProductService productService) {
         this.transactionRepository = transactionRepository;
         this.stockService = stockService;
         this.priceService = priceService;
+        this.productService = productService;
 
     }
 
@@ -39,9 +42,10 @@ public class TransactionService implements ITransactionService{
     public Transaction create(Transaction create){
         try {
             Optional<Price> findPriceId = priceService.findId(create.getPriceId());
-            Optional<Stock> findStockId = stockService.findId(findPriceId.get().getStockId());
+            Optional<Product> findProductId = productService.findId(findPriceId.get().getProductId());
+            Optional<Stock> findStockId = stockService.findId(findProductId.get().getStockId());
             findStockId.get().setStock(findStockId.get().getStock() - create.getQty());
-            stockService.update(findStockId.get(),findPriceId.get().getStockId());
+            stockService.update(findStockId.get(),findProductId.get().getStockId());
             System.out.println("Transaction Added");
             return transactionRepository.create(create);
         }catch (Exception e){

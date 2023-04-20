@@ -9,21 +9,27 @@ public class Product {
     private String name;
     private String size;
     private String categoryId;
+    private String stockId;
 
 
-    public Product(String id, String name, String size, String categoryId) {
-        this.id = id;
+    public Product(String name, String size, String categoryId,String stockId) {
         this.name = name;
         this.size = size;
         this.categoryId = categoryId;
-    }
-
-    public Product(String name, String size, String categoryId) {
-        this.name = name;
-        this.size = size;
-        this.categoryId = categoryId;
+        this.stockId = stockId;
     }
 
     public Product() {
+    }
+
+    @Override
+    public String toString() {
+        return "Product{" +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                ", size='" + size + '\'' +
+                ", categoryId='" + categoryId + '\'' +
+                ", stockId='" + stockId + '\'' +
+                '}';
     }
 }

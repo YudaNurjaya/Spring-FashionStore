@@ -58,14 +58,7 @@ public class PriceController {
             System.out.println("2. Input product id\t: ");
             productId = scanner.next();
         }
-        System.out.println("2. Input stock id\t: ");
-        String stockId = scanner.next();
-        while(stockId.isEmpty()){
-            System.out.println("Must fill stock Id");
-            System.out.println("2. Input stock id\t: ");
-            stockId = scanner.next();
-        }
-        Price create = new Price(price,productId,stockId);
+        Price create = new Price(price,productId);
         priceService.create(create);
     }
 
@@ -91,14 +84,7 @@ public class PriceController {
             System.out.println("2. Input product id\t: ");
             productId = scanner.next();
         }
-        System.out.println("2. Input stock id\t: ");
-        String stockId = scanner.next();
-        while(stockId.isEmpty()){
-            System.out.println("Must fill stock Id");
-            System.out.println("2. Input stock id\t: ");
-            stockId = scanner.next();
-        }
-        Price update = new Price(price,productId,stockId);
+        Price update = new Price(price,productId);
         priceService.update(update,priceId);
     }
 

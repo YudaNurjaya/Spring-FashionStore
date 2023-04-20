@@ -1,7 +1,7 @@
 package org.enigma.repository;
 
 import org.enigma.model.Product;
-import org.enigma.model.mapping.StoreMapper;
+import org.enigma.model.mapping.ProductMapper;
 import org.enigma.utils.RandomUuid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -17,9 +17,9 @@ public class ProductRepository implements IProductRepository {
     private RandomUuid randomUuid;
     private JdbcTemplate jdbcTemplate;
     private final String SQL_GET_ALL = "select * from product";
-    private final String INSERT_INTO_STORE = "insert into product values(?,?,?,?)";
+    private final String INSERT_INTO_STORE = "insert into product values(?,?,?,?,?)";
     private final String SQL_FIND_BY_ID = "select * from product where id = ?";
-    private final String SQL_UPDATE = "update product set name = ?, size = ?, category_id = ? where id = ?";
+    private final String SQL_UPDATE = "update product set name = ?, size = ?, category_id = ?, stock_id = ? where id = ?";
     private final String SQL_DELETE = "delete from product where id = ?";
 
     public ProductRepository(DataSource dataSource) {
@@ -29,7 +29,7 @@ public class ProductRepository implements IProductRepository {
     @Override
     public List<Product> getAll(){
         try {
-            return jdbcTemplate.query(SQL_GET_ALL, new StoreMapper());
+            return jdbcTemplate.query(SQL_GET_ALL, new ProductMapper());
         }catch (DataAccessException e){
             throw new RuntimeException(e.getMessage());
         }
@@ -39,7 +39,7 @@ public class ProductRepository implements IProductRepository {
     public Product create(Product create) throws Exception {
         try {
             create.setId(randomUuid.random());
-            int add = jdbcTemplate.update(INSERT_INTO_STORE,create.getId(), create.getName(),create.getSize(),create.getCategoryId());
+            int add = jdbcTemplate.update(INSERT_INTO_STORE,create.getId(), create.getName(),create.getSize(),create.getCategoryId(),create.getStockId());
             if(add<=0){
                 throw new Exception("Failed to insert");
             }
@@ -52,7 +52,7 @@ public class ProductRepository implements IProductRepository {
     @Override
     public Optional<Product> findById(String id) throws Exception {
         try {
-            Product product = jdbcTemplate.queryForObject(SQL_FIND_BY_ID, new StoreMapper(),new Object[]{id});
+            Product product = jdbcTemplate.queryForObject(SQL_FIND_BY_ID, new ProductMapper(),new Object[]{id});
             return Optional.ofNullable(product);
         }catch (Exception e){
             throw new RuntimeException(e.getMessage());
@@ -62,7 +62,7 @@ public class ProductRepository implements IProductRepository {
     @Override
     public void update(Product update, String id) throws Exception {
         try {
-            jdbcTemplate.update(SQL_UPDATE, update.getName(),update.getSize(),update.getCategoryId(),id);
+            jdbcTemplate.update(SQL_UPDATE, update.getName(),update.getSize(),update.getCategoryId(),update.getStockId(),id);
         }catch (DataAccessException e){
             throw new RuntimeException(e.getMessage());
         }

@@ -73,7 +73,14 @@ public class ProductController {
             System.out.println("4. Category\t: ");
             category = scanner.next();
         }
-        Product store = new Product(product,size,category);
+        System.out.println("4. Input stock id\t: ");
+        String stockId = scanner.next();
+        while(stockId.isEmpty()){
+            System.out.println("Must fill stock Id");
+            System.out.println("2. Input stock id\t: ");
+            stockId = scanner.next();
+        }
+        Product store = new Product(product,size,category,stockId);
         storeService.create(store);
     }
     public void updateProduct(){
@@ -105,7 +112,14 @@ public class ProductController {
             System.out.println("4. Category\t: ");
             category = scanner.next();
         }
-        Product store = new Product(product,size,category);
+        System.out.println("4. Input stock id\t: ");
+        String stockId = scanner.next();
+        while(stockId.isEmpty()){
+            System.out.println("Must fill stock Id");
+            System.out.println("2. Input stock id\t: ");
+            stockId = scanner.next();
+        }
+        Product store = new Product(product,size,category,stockId);
         storeService.update(store,id);
     }
 
