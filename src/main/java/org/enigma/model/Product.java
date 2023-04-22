@@ -19,6 +19,14 @@ public class Product {
         this.stockId = stockId;
     }
 
+    public Product(String id, String name, String size, String categoryId, String stockId) {
+        this.id = id;
+        this.name = name;
+        this.size = size;
+        this.categoryId = categoryId;
+        this.stockId = stockId;
+    }
+
     public Product() {
     }
 

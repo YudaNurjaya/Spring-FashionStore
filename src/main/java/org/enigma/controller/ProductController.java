@@ -134,43 +134,45 @@ public class ProductController {
         storeService.delete(id);
     }
     public void searchProduct(){
+        System.out.println("1. Id Product");
+        System.out.println("2. Size Product");
+        System.out.println("3. Name Product");
         System.out.println("Search by\t: ");
         String by = scanner.next();
-        if(by.equalsIgnoreCase("id")){
-            System.out.println("Input Id Product\t: ");
-            String id = scanner.next();
-            while (id.isEmpty()){
-                System.out.println("Id not valid");
-                System.out.println("Input Id Product\t: ");
-                id = scanner.next();
-            }
-            storeService.findId(id).stream().forEach(System.out::println);
-        }
 
-        if(by.equalsIgnoreCase("size")){
-            System.out.println("Input Size\t: ");
-            String size = scanner.next();
-            while(!size.matches("([Xx][Ss]|[SsMmLlXx]{1,2}|[Xx][Ll])|[0-9]{1,2}")){
-                System.out.println("Size invalid");
+        switch (by){
+            case "1" -> { System.out.println("Input Id Product\t: ");
+                String id = scanner.next();
+                while (id.isEmpty()){
+                    System.out.println("Id not valid");
+                    System.out.println("Input Id Product\t: ");
+                    id = scanner.next();
+                }
+                storeService.findId(id).stream().forEach(System.out::println);
+            }
+            case "2" -> {
                 System.out.println("Input Size\t: ");
-                size = scanner.next();
+                String size = scanner.next();
+                while(!size.matches("([Xx][Ss]|[SsMmLlXx]{1,2}|[Xx][Ll])|[0-9]{1,2}")){
+                    System.out.println("Size invalid");
+                    System.out.println("Input Size\t: ");
+                    size = scanner.next();
+                }
+                storeService.findBySize(size).forEach(System.out::println);
             }
-            storeService.findBySize(size).stream().forEach(System.out::println);
-        }
-        if(by.equalsIgnoreCase("product")){
-            System.out.println("Input Product\t: ");
-            String product = scanner.next();
-            while(!product.matches("^[a-zA-Z0-9]+${4,}")){
-                System.out.println("Product Invalid");
+            case "3" -> {
                 System.out.println("Input Product\t: ");
-                product = scanner.next();
+                String product = scanner.nextLine();
+                while(!product.matches("^[a-zA-Z0-9]+(?:\\s+[a-zA-Z0-9]+)*$")){
+                    System.out.println("Product Invalid");
+                    System.out.println("Input Product\t: ");
+                    product = scanner.nextLine();
+                }
+                storeService.findByProduct(product).forEach(System.out::println);
             }
-            storeService.findByProduct(product).stream().forEach(System.out::println);
+            default -> System.out.println("Cannot find the menu of search by");
+            }
         }
-        else{
-            System.out.println("Cannt find the column for search by");
-        }
-    }
     public void getAll(){
         storeService.list().forEach(System.out::println);
     }

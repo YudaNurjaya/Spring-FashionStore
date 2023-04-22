@@ -44,10 +44,17 @@ public class TransactionService implements ITransactionService{
             Optional<Price> findPriceId = priceService.findId(create.getPriceId());
             Optional<Product> findProductId = productService.findId(findPriceId.get().getProductId());
             Optional<Stock> findStockId = stockService.findId(findProductId.get().getStockId());
-            findStockId.get().setStock(findStockId.get().getStock() - create.getQty());
-            stockService.update(findStockId.get(),findProductId.get().getStockId());
-            System.out.println("Transaction Added");
-            return transactionRepository.create(create);
+            if(findStockId.get().getStock()< create.getQty()){
+                System.out.println("Stock of "  + findProductId.get().getName() + " is " + findStockId.get().getStock());
+                System.out.println("Cannot add transaction because out of stock");
+            }
+            else{
+                findStockId.get().setStock(findStockId.get().getStock() - create.getQty());
+                stockService.update(findStockId.get(),findProductId.get().getStockId());
+                System.out.println("Transaction Added");
+                transactionRepository.create(create);
+            }
+            return null;
         }catch (Exception e){
             throw new RuntimeException(e.getMessage());
         }

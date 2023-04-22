@@ -82,7 +82,7 @@ public class ProductRepository implements IProductRepository {
         try {
             List<Product> list = jdbcTemplate.query(SQL_GET_ALL, (rs, rowNum)-> new Product
                             (rs.getString("id"),rs.getString("name"),rs.getString("size"),
-                                    rs.getString("category_id")))
+                                    rs.getString("category_id"),rs.getString("stock_id")))
                     .stream()
                     .filter(c->c.getName().equals(product))
                     .collect(Collectors.toList());
@@ -100,7 +100,7 @@ public class ProductRepository implements IProductRepository {
         try {
             List<Product> list = jdbcTemplate.query(SQL_GET_ALL, (rs, rowNum)-> new Product
                             (rs.getString("id"),rs.getString("name"),rs.getString("size"),
-                                    rs.getString("category_id")))
+                                    rs.getString("category_id"),rs.getString("stock_id")))
                     .stream()
                     .filter(c->c.getSize().equals(size))
                     .collect(Collectors.toList());
